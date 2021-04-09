@@ -48,6 +48,7 @@ const usersPut = async (req, res) => {
 };
 const usersDelete = async (req, res) => {
   const { id } = req.params;
+
   //BOrrar fisicamente de BD
   //const usuarioBorrado = await Usuario.findByIdAndDelete(id);
   const usuarioBorrado = await Usuario.findByIdAndUpdate(id, { estado: false });
