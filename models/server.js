@@ -6,8 +6,13 @@ class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT;
-    this.userRoutesPath = "/api/users";
-    this.authPath = "/api/auth";
+    this.routesPaths = {
+      users: "/api/users",
+      auth: "/api/auth",
+      buscar: "/api/buscar",
+      categorias: "/api/categorias",
+      productos: "/api/productos",
+    };
 
     //Database Connection
     this.conectarDb();
@@ -33,10 +38,12 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.authPath, require("../routes/auth"));
-    this.app.use(this.userRoutesPath, require("../routes/users"));
+    this.app.use(this.routesPaths.auth, require("../routes/auth"));
+    this.app.use(this.routesPaths.users, require("../routes/users"));
+    this.app.use(this.routesPaths.buscar, require("../routes/buscar"));
+    this.app.use(this.routesPaths.categorias, require("../routes/categorias"));
+    this.app.use(this.routesPaths.productos, require("../routes/productos"));
   }
-
   listen() {
     this.app.listen(this.port, () => {
       console.log("Server on port: ", this.port);
